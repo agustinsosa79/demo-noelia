@@ -1,0 +1,148 @@
+@import 'tailwindcss';
+
+/*
+ * Sistema de diseño v2 — «Hierro».
+ * Paleta casi monocroma (negro carbón + hueso) con un único acento fucsia,
+ * tomado de la marca de Noelia, reservado para la acción principal.
+ * Referencias: Equinox, Ghost, Tonal, Third Space (ver ART_DIRECTION.md).
+ */
+@theme {
+  --color-ink: #0b0b0c;
+  --color-carbon: #141416;
+  --color-graphite: #222226;
+  --color-smoke: #3a3a3f;
+  --color-bone: #f3f1ed;
+  --color-sand: #e7e3dc;
+  --color-line: #d9d4cb;
+  --color-muted: #6f6b64;
+  --color-fog: #a6a29b;
+  --color-white: #ffffff;
+  /* Fondo de producto: las fotos se funden con multiply (sin recuadros grises). */
+  --color-shelf: #efeeeb;
+  --color-rose: #d1166f;
+  --color-rose-deep: #a90f58;
+  --color-success: #1f7a4d;
+  --color-danger: #b3261e;
+
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  --text-hero: clamp(3rem, 1.4rem + 7.2vw, 8.75rem);
+  --text-hero--line-height: 0.88;
+  --text-display: clamp(2.5rem, 1.3rem + 4.6vw, 6rem);
+  --text-display--line-height: 0.9;
+  --text-title: clamp(2rem, 1.3rem + 2.6vw, 3.75rem);
+  --text-title--line-height: 0.95;
+  --text-heading: clamp(1.35rem, 1.1rem + 0.9vw, 1.9rem);
+  --text-heading--line-height: 1.05;
+  --text-lead: clamp(1.075rem, 1rem + 0.4vw, 1.3rem);
+  --text-lead--line-height: 1.55;
+  --text-statement: clamp(1.75rem, 1rem + 3.1vw, 4.1rem);
+  --text-statement--line-height: 1.08;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --container-site: 92rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  body {
+    @apply bg-bone font-sans text-ink antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  ::selection {
+    background: var(--color-rose);
+    color: white;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-rose);
+    outline-offset: 3px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+
+/* Títulos: Archivo condensada, en mayúsculas y con interlineado justo. */
+@utility font-display {
+  font-family: var(--font-display);
+  font-stretch: 72%;
+  font-weight: 800;
+  letter-spacing: -0.012em;
+  text-transform: uppercase;
+}
+/* Subtítulos y nombres de producto: misma familia, ancho normal. */
+@utility font-title {
+  font-family: var(--font-display);
+  font-stretch: 92%;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+/* Etiquetas y datos: mono pequeña en mayúsculas (estilo ficha técnica). */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 3.5rem;
+  }
+}
+@utility section-y {
+  padding-block: 5.5rem;
+  @media (width >= 64rem) {
+    padding-block: 9rem;
+  }
+}
+
+/* Máscara para revelar líneas de texto (SplitText). */
+.split-line {
+  overflow: clip;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Elementos de entrada: ocultos solo hasta que arranca la animación (ver index.html). */
+.motion:not(.motion-ready) :is([data-intro], [data-hero-in], [data-hero-photo], [data-hero-bg], [data-ph-in]) {
+  visibility: hidden;
+}
